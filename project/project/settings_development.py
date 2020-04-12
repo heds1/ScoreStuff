@@ -1,4 +1,4 @@
-debug = True
+DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost'

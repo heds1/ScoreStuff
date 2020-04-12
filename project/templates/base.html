@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock title %}</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Custom css -->
+    <link rel="stylesheet" href="{% static 'pages/style.css' %}" />
+    
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light
+        bg-white border-bottom box-shadow" id="primary-nav">
+            <div class="container">
+                <div class="navbar-collapse w-100 navbar-left">
+                    <a class="navbar-brand d-inline" href="{% url 'home' %}">Home</a>
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item">
+                            {% if user.is_authenticated %}
+                            Welcome, {{ user.username }}!
+                            <a class="btn btn-outline-primary" href="{% url 'account_logout' %}">Logout</a>
+                            {% else %}
+                            <a class="btn btn-outline-primary" href="">Sign in</a>
+                            <a class="btn btn-primary" href="">GET STARTED</a>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="main-container">
+        <main class="main" class="pb-3">
+            <!-- main content of page -->
+            {% block content %}
+            {% endblock content %}
+        </main>
+    </div>
+
+    <div class="footer">
+        <p id="footer-text">
+            &copy; 2020 - Hedley Stirrat - <a href="{% url 'privacy' %}" id="faded-text">Privacy</a>
+        </p>
+    </div>
+</body>
+</html>

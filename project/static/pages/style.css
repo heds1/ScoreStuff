@@ -1,0 +1,83 @@
+/* right-align login button */
+#primary-nav > div > div > ul.nav.navbar-nav {
+    margin-left: auto;
+}
+
+/* style the footer */
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: white;
+    text-align: center;
+    padding: 15px;
+    border-top: 1px solid #dee2e6;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: rgb(222, 226, 230);
+}
+
+#footer-text {
+    margin: auto;
+}
+
+/* light-grey text color */
+#faded-text {
+    color: rgba(0,0,0,.5);
+}
+
+/* center main content */
+body > div.container > main.pb-3 {
+    text-align: center;
+}
+
+/* add a bit of padding to left of input in forms */
+input{
+    padding-left: 10px;
+ }
+
+/* style GET STARTED button in base */
+a.btn.btn-primary {
+    font-weight: 500;
+}
+
+/* style SIGN IN button in base */
+a.btn.btn-outline-primary {
+    font-weight: 500;
+}
+
+div.main-container {
+    background: #f8f8f8;
+    height: 100vh;
+    padding-top: 20px;
+}
+
+.main {
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+/* style the center box for login and signup */
+.center {
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    margin: auto;
+    margin-top: 80px;
+    margin-bottom: 80px;
+    background: white;
+    text-align: center;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 10px;
+
+}
+
+/* style text in login and signup forms */
+input {
+    font-size: 22px;
+    /* background: #f8f8f8; */
+}
