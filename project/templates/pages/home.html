@@ -7,4 +7,13 @@
 
 <h1>Welcome to ScoreStuff</h1>
 
+<div class="center">
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" class="btn btn-primary" value="GET STARTED!">
+    </form>
+</div>
+
+
 {% endblock content %}
