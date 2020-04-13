@@ -62,6 +62,8 @@ class Round(models.Model):
         to=Game,
         on_delete=models.CASCADE)
     
+    # def __str__(self):
+    #     return self.id
 
 
 class Score(models.Model):
@@ -72,8 +74,8 @@ class Score(models.Model):
     one Round, but a Round can have many Scores).
     """
     # ensure only one score is added for a given Round/Player combination
-    class Meta:
-        unique_together = (("game_round", "player"), )
+    # class Meta:
+        # unique_together = (("game_round", "player"), )
     
     game_round = models.ForeignKey(
         to=Round,
@@ -84,8 +86,8 @@ class Score(models.Model):
     value = models.IntegerField(
         default=0)
 
-    def __str__(self):
-        return "Round %s, Player = %s, Score = %s" % (self.game_round, self.player, self.value)
+    # def __str__(self):
+    #     return "Round %s, Player = %s, Score = %s" % (self.game_round, self.player, self.value)
     
 
 # python manage.py shell
@@ -96,3 +98,7 @@ class Score(models.Model):
 
 # newround = Round(game=myg)
 # newscore = Score(game_round=newround, player=myg.player_set.all()[1], value=5)
+
+# myp = myg.player_set.all()[7]
+# myr = myg.round_set.all()[1]
+# newscore = Score(game_round=myr, player=myp, value=2)

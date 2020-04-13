@@ -4,13 +4,10 @@
 {% block title %}Game room{% endblock title %}
 
 {% block content %}
-<h1>Game</h1>
-
-<p>slug: {{ this_game.slug }}</p>
-<p>Players:</p>
-{% for player in players %}
-    <p>{{ player.name }}</p>
-{% endfor %}
+<h3>Players</h3>
+<p>
+    {{ players|join:", "}}
+</p>
 
 <form action="" method="post">
     {% csrf_token %}
@@ -19,16 +16,39 @@
             autocapitalize="none" autocomplete="none" placeholder="Name"
             aria-label="Name" maxlength="30" required="" id="id_name">
     </div>
-    <div hidden class="input-group mb=3">
+    <div hidden class="input-group mb-3">
         <select name="game" required="" id="id_game">
             <option value="{{this_game.id}}"></option>
         </select>
     </div>
     <input type="submit" name="add_player" class="btn btn-primary" value="Add player">
 </form>
-
-
+<hr>
 <br />
+
+<form method="post">
+    {% csrf_token %}
+    <div hidden class="input-group mb=3">
+        <select name="game" required="" id="id_game">
+            <option value="{{this_game.id}}"></option>
+        </select>
+    </div>
+    <input type="submit" name="add_round" class="btn btn-primary" value="New round">
+</form>
+<br />
+
+<form method="post">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    {% for form in formset %}
+        {% for field in form %}
+            {{ field.label_tag }} {{ field }}
+        {% endfor %}
+    {% endfor %}
+    <input type="submit" name="add_score" class="btn btn-primary" value="Update scores">
+</form>
+
+<h3>Score</h3>
 
 <table>
     <tr>
@@ -41,19 +61,22 @@
         </th>
         {% endfor %}
     </tr>
-    
-        
-     
+    {% for round in rounds %}
+        <tr>
+            <td>
+                {{ round }}
+            </td>
+            {% for score in round.score_set.all %}
+            <td>
+                {{ score.value }}
+            </td>
+            {% endfor %}
 
+            
+        </tr>
+    {% endfor %}
 </table>
-<form method="post">
-    {% csrf_token %}
-    <div hidden class="input-group mb=3">
-        <select name="game" required="" id="id_game">
-            <option value="{{this_game.id}}"></option>
-        </select>
-    </div>
-    <input type="submit" name="add_round" class="btn btn-primary" value="New round">
-</form>
+
+<br />
 
 {% endblock content %}

@@ -1,0 +1,11 @@
+{
+    "python.pythonPath": "C:\\Users\\hls\\code\\py\\scorestuff\\env\\Scripts\\python.exe",
+    "python.venvFolders": [
+        "env/",
+        "~",
+        "~/env",
+        ".",
+        "~/code/py/scorestuff"
+    ],
+    "python.venvPath": "~/code/py/scorestuff"
+}

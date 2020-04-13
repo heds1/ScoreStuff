@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.urls import reverse
 from scorer.forms import CreateGameForm
-from scorer.models import Game
+from scorer.models import Game, Round
 from django.http import HttpResponseRedirect
 
 def home(request):
@@ -13,6 +13,9 @@ def home(request):
         if form.is_valid():
             new_game = Game()
             new_game.save()
+            # initialise game with first Round
+            new_round = Round(game=new_game)
+            new_round.save()
 
             # redirect to new game room
             return HttpResponseRedirect(reverse('game', kwargs = {'slug': new_game.slug}))
