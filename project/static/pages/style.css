@@ -22,6 +22,11 @@
     margin: auto;
 }
 
+/* increase button size in forms */
+form {
+    display: grid;
+}
+
 /* light-grey text color */
 #faded-text {
     color: rgba(0,0,0,.5);
