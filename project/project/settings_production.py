@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # local
     'users.apps.UsersConfig',
     'pages.apps.PagesConfig',
+    'scorer.apps.ScorerConfig',
 ]
 
 # define custom user model
