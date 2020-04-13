@@ -22,12 +22,7 @@
                     <a class="navbar-brand d-inline" href="{% url 'home' %}">Home</a>
                     <ul class="nav navbar-nav">
                         <li class="nav-item">
-                            {% if user.is_authenticated %}
-                            Welcome, {{ user.username }}!
-                            <a class="btn btn-outline-primary" href="{% url 'account_logout' %}">Logout</a>
-                            {% else %}
-                            <a class="btn btn-outline-primary" href="">Sign in</a>
-                            {% endif %}
+
                         </li>
                     </ul>
                 </div>

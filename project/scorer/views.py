@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from scorer.models import Game, Player, Score
+from scorer.models import Game, Player, Score, Round
 from .forms import AddPlayerForm, AddRoundForm, ScoreForm
 from django.urls import reverse
 from django.forms import modelformset_factory
+from django.db.models import Sum
 
 def game(request, slug):
     this_game = Game.objects.get(slug=slug)
@@ -14,6 +15,10 @@ def game(request, slug):
     add_round_form = AddRoundForm(initial={'game': this_game})
     AddScoreFormSet = modelformset_factory(Score, form=ScoreForm, fields=('game_round','player','value'), extra=0)
     
+    # get total scores
+    # https://stackoverflow.com/questions/45547674/how-to-execute-a-group-by-count-or-sum-in-django-orm/45547675
+    running_scores = Score.objects.filter(game_round__id__in=rounds, player_id__in=players).values('player_id').order_by('player_id').annotate(total=Sum('value'))
+        
     # the queryset filtering won't work if we haven't added a Round to this game
     # yet, so check if that's the case; otherwise, create empty formset
     if latest_round is not None and players is not None:
@@ -24,21 +29,22 @@ def game(request, slug):
     # if POST (someone's clicked a button...)
     if request.method == 'POST':
 
-        # if the POST request is to add another Round
-        if 'add_round' in request.POST:
-            add_round_form = AddRoundForm(request.POST)
-            if add_round_form.is_valid():
-                add_round_form.save()
-                # give every Player placeholder scores of zero
-                new_round = this_game.round_set.all().last()
-                for player in players:
-                    new_score = Score(game_round=new_round, player=player, value=0)
-                    new_score.save()
+        # # if the POST request is to add another Round
+        # if 'add_round' in request.POST:
 
-                return HttpResponseRedirect(reverse('game', kwargs = {'slug': this_game.slug}))
+        #     add_round_form = AddRoundForm(request.POST)
+        #     if add_round_form.is_valid():
+        #         add_round_form.save()
+        #         # give every Player placeholder scores of zero
+        #         new_round = this_game.round_set.all().last()
+        #         for player in players:
+        #             new_score = Score(game_round=new_round, player=player, value=0)
+        #             new_score.save()
+
+        #         return HttpResponseRedirect(reverse('game', kwargs = {'slug': this_game.slug}))
         
         # if the POST request is to add another Player
-        elif 'add_player' in request.POST:
+        if 'add_player' in request.POST:
             add_player_form = AddPlayerForm(request.POST)
             if add_player_form.is_valid():
                 add_player_form.save()
@@ -50,10 +56,28 @@ def game(request, slug):
                 return HttpResponseRedirect(reverse('game', kwargs = {'slug': this_game.slug}))
                 
         # if the POST request is to add another set of Scores
+        # ... also add another empty Round
         elif 'add_score' in request.POST:
             formset = AddScoreFormSet(request.POST)
             # if formset.is_valid():
             formset.save()
+
+            new_round = Round(game=this_game)
+            new_round.save()   
+            new_round = this_game.round_set.all().last()
+            for player in players:
+                new_score = Score(game_round=new_round, player=player, value=0)
+                new_score.save()         
+
+            # add_round_form = AddRoundForm(request.POST)
+            # if add_round_form.is_valid():
+            #     add_round_form.save()
+            #     # give every Player placeholder scores of zero
+            #     new_round = this_game.round_set.all().last()
+            #     for player in players:
+            #         new_score = Score(game_round=new_round, player=player, value=0)
+            #         new_score.save()
+
             return HttpResponseRedirect(reverse('game', kwargs = {'slug': this_game.slug}))
 
 
@@ -68,6 +92,7 @@ def game(request, slug):
         "add_player_form": add_player_form,
         "add_round_form": add_round_form,
         "players": players,
+        "running_scores": running_scores,
         "rounds": rounds,
         "latest_round": latest_round,
         "formset": formset,

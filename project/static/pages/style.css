@@ -22,6 +22,16 @@
     margin: auto;
 }
 
+/* center align and decrease size of the score updater inputs */
+input[type=number] {
+    text-align: center;
+    font-size: 1rem;
+}
+
+#add_score {
+    font-size: 14px;
+}
+
 /* increase button size in forms */
 form {
     display: grid;
