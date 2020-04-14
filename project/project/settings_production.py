@@ -21,12 +21,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ['SCORESTUFF_SECRET_KEY']
+#SECRET_KEY = 'q)5ekaj0n(^8p4w3!n!%d&q$)jqq6#07ih2_b%i5tens*kl1yq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 ALLOWED_HOSTS = [
-
+    '.scorestuff.nz',
+    '128.199.238.34',
+    'localhost',
+    'www.scorestuff.nz',
+    'scorestuff.nz'
 ]
 
 
