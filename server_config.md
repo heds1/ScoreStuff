@@ -94,8 +94,10 @@ sudo ufw allow 8000
 ```
 
 ## Add Django secret key to env var
+```
 SCORESTUFF_SECRET_KEY='...'
 export SCORESTUFF_SECRET_KEY
+```
 
 ## Check dev server (no static files at this point)
 ```
@@ -164,14 +166,90 @@ sudo systemctl status gunicorn.socket
 ## Check for existence of gunicorn.sock file within the /run directory. Should output /run/gunicorn.sock: socket
 file /run/gunicorn.sock
 
-# testing socket activation
-# at the mo, we've only started the gunicorn.socket unit, so the
-# gunicorn.service will not be active yet since the socket has not received any
-# connections. check this: should say inactive (dead)
+## Testing socket activation
+At the mo, we've only started the gunicorn.socket unit, so the gunicorn.service will not be active yet since the socket has not received any connections. check this: should say inactive (dead) 
+```
 sudo systemctl status gunicorn
+```
 
 ## Test socket activation mechanism; should return the html output from the app
+```
 curl --unix-socket /run/gunicorn.sock localhost
+```
 
+## Verify that the service is running
+```
+sudo systemctl status gunicorn
+```
 
+## If you need to change gunicorn settings, reload daemon and restart gunicorn
+```
+sudo systemctl daemon-reload
+sudo systemctl restart gunicorn
+```
+
+## Create and open a new server block
+```
+sudo nano /etc/nginx/sites-available/ScoreStuff
+
+server {
+    listen 80;
+    server_name 128.199.238.34 .scorestuff.nz;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /home/hedley/ScoreStuff/project;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/run/gunicorn.sock;
+    }
+}
+```
+
+## Enable the file by linking it to the sites-enabled directory
+```
+sudo ln -s /etc/nginx/sites-available/mywebsite /etc/nginx/sites-enabled
+```
+
+## Test config for syntax errors
+```
+sudo nginx -t
+```
+
+## Restart nginx when you change config file
+```
+sudo systemctl restart nginx
+```
+
+## Open up firewall to normal traffic on port 80. also remove port 8000 since we no longer need access to dev server
+```
+sudo ufw delete allow 8000
+sudo ufw allow 'Nginx Full'
+```
+
+Should all be working now!
+
+# Get certificate
+https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-18-04
+
+## Add certbot repository
+```
+sudo add-apt-repository ppa:certbot/certbot
+```
+
+## Install certbot's nginx package
+```
+sudo apt install python-certbot-nginx
+```
+
+## Obtain cert
+```
+sudo certbot --nginx -d .scorestuff.nz
+```
+
+### misc
+```
 gunicorn --chdir ~/ScoreStuff/project --bind 0.0.0.0:8000 project.wsgi
+```
