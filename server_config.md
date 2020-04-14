@@ -157,14 +157,20 @@ WantedBy=multi-user.target
 ```
 
 ## Start and enable the socket
+```
 sudo systemctl start gunicorn.socket
 sudo systemctl enable gunicorn.socket
+```
 
 ## Check status
+```
 sudo systemctl status gunicorn.socket
+```
 
 ## Check for existence of gunicorn.sock file within the /run directory. Should output /run/gunicorn.sock: socket
+```
 file /run/gunicorn.sock
+```
 
 ## Testing socket activation
 At the mo, we've only started the gunicorn.socket unit, so the gunicorn.service will not be active yet since the socket has not received any connections. check this: should say inactive (dead) 
