@@ -28,21 +28,7 @@ def game(request, slug):
 
     # if POST (someone's clicked a button...)
     if request.method == 'POST':
-
-        # # if the POST request is to add another Round
-        # if 'add_round' in request.POST:
-
-        #     add_round_form = AddRoundForm(request.POST)
-        #     if add_round_form.is_valid():
-        #         add_round_form.save()
-        #         # give every Player placeholder scores of zero
-        #         new_round = this_game.round_set.all().last()
-        #         for player in players:
-        #             new_score = Score(game_round=new_round, player=player, value=0)
-        #             new_score.save()
-
-        #         return HttpResponseRedirect(reverse('game', kwargs = {'slug': this_game.slug}))
-        
+       
         # if the POST request is to add another Player
         if 'add_player' in request.POST:
             add_player_form = AddPlayerForm(request.POST)
@@ -68,15 +54,6 @@ def game(request, slug):
             for player in players:
                 new_score = Score(game_round=new_round, player=player, value=0)
                 new_score.save()         
-
-            # add_round_form = AddRoundForm(request.POST)
-            # if add_round_form.is_valid():
-            #     add_round_form.save()
-            #     # give every Player placeholder scores of zero
-            #     new_round = this_game.round_set.all().last()
-            #     for player in players:
-            #         new_score = Score(game_round=new_round, player=player, value=0)
-            #         new_score.save()
 
             return HttpResponseRedirect(reverse('game', kwargs = {'slug': this_game.slug}))
 

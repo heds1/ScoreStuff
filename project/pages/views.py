@@ -6,13 +6,19 @@ from django.http import HttpResponseRedirect
 
 def home(request):
 
-    # if the 'GET STARTED' button is clicked, we need to process the form data
-    # (which basically just creates a game)
+    # create new room
     if request.method == 'POST':
+
+        # instantiate form
         form = CreateGameForm(request.POST)
+
         if form.is_valid():
-            new_game = Game()
+
+            # set the organizer to the current user
+            new_game = form.save(commit=False)
+            new_game.organizer = request.user
             new_game.save()
+
             # initialise game with first Round
             new_round = Round(game=new_game)
             new_round.save()

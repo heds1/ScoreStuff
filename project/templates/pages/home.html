@@ -15,7 +15,7 @@
 <div class="home-mid">
     <form method="post">
         {% csrf_token %}
-        {{ form }}
+        <input type="text" name="slug" maxlength="50" id="id_slug" style="display:none;">
         <input type="submit" class="btn btn-primary" value="Create new room">
     </form>
 </div>

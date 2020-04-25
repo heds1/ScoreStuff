@@ -1,6 +1,8 @@
 from django.db import models
 from datetime import datetime
 from django.utils.crypto import get_random_string
+from users.models import CustomUser
+from django.conf import settings
 
 class Game(models.Model):
     """
@@ -14,11 +16,22 @@ class Game(models.Model):
     slug = models.SlugField(
         unique=True,
         blank=True) # only so I can migrate after initial migration....
+    organizer = models.ForeignKey(
+        to=settings.AUTH_USER_MODEL,
+        related_name="organizer",
+        default=1, # default to admin
+        on_delete=models.CASCADE)
+
+    # def __init__(self, *args, **kwargs):
+    #     self.request = kwargs.pop('request', None)
+    #     return super(Game, self).__init__(*args, **kwargs)
+
 
     def save(self, *args, **kwargs):
-        # if a slug doesn't exist (i.e., if this is the first time this has been
-        # saved)
+        
+        # only add slug and organizer fields on first save
         if not self.slug:
+
             self.slug = get_random_string(7)
             # check for unique slug
             slug_is_wrong = True
