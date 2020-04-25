@@ -21,7 +21,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ['SCORESTUFF_SECRET_KEY']
-#SECRET_KEY = 'q)5ekaj0n(^8p4w3!n!%d&q$)jqq6#07ih2_b%i5tens*kl1yq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -44,11 +43,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     # local
     'users.apps.UsersConfig',
     'pages.apps.PagesConfig',
     'scorer.apps.ScorerConfig',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 # define custom user model
@@ -136,6 +139,33 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static/')
 ]
+
+
+
+# emaillogin_project/settings.py
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+SITE_ID = 1
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_UNIQUE_EMAIL = True
+
+LOGIN_REDIRECT_URL = 'home'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'home'
+# don't ask again for sign out
+ACCOUNT_LOGOUT_ON_GET = True
 
 # if development environment, import settings_development.py
 if os.environ.get('DJANGO_DEVELOPMENT') is not None:

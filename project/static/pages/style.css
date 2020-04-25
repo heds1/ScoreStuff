@@ -18,8 +18,45 @@
     border-top-color: rgb(222, 226, 230);
 }
 
+/* style the main home content */
+div.home {
+    display:flex;
+    width:100%;
+    align-items:center;
+    justify-content: center;
+    margin: auto;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    flex-direction: column;
+    text-align: center;
+}
+
+div.home-mid {
+    display:flex;
+    width:100%;
+    align-items:center;
+    justify-content: center;
+    margin: auto;
+    text-align: center;
+    flex-direction: column;
+    background: white !important;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
 #footer-text {
     margin: auto;
+}
+
+/* table resizing */
+table {
+    width: 50%;
+}
+
+@media (min-width: 600px) {
+    table {
+        width: 80%
+    }
 }
 
 /* center align and decrease size of the score updater inputs */
