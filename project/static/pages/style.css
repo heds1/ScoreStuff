@@ -48,6 +48,19 @@ div.home-mid {
     margin: auto;
 }
 
+/* style the login forms */
+label {
+    display: none;
+}
+
+#id_login.input {
+    
+}
+
+<input type="email" class="form-control" name="login" autofocus=""
+            autocapitalize="none" autocomplete="none" maxlength="30"
+            required="" id="id_login" placeholder="Email address" aria-label="Email address">
+
 /* table resizing */
 table {
     width: 50%;
