@@ -11,7 +11,7 @@
     <br />
     <form method="post">
         {% csrf_token %}
-            <div style="margin-bottom: 1rem;">
+            <!-- <div style="margin-bottom: 1rem;">
                 <input type="email" class="form-control" name="email" autofocus=""
                 autocapitalize="none" autocomplete="none" maxlength="30"
                 required="" id="id_email" placeholder="Email address" aria-label="Email address">
@@ -31,7 +31,8 @@
                 <input type="password" class="form-control" name="password1" autofocus=""
                 autocapitalize="none" autocomplete="none" maxlength="30"
                 required="" id="id_password1" placeholder="Password" aria-label="Password">
-            </div>
+            </div> -->
+            {{form.as_p}}
         <button type="submit" class="btn btn-primary">Sign up</button>
     </form>
     <p style='white-space: pre-line;'>

@@ -162,7 +162,8 @@ ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_FORMS = {
-    'login': 'users.forms.CustomLoginForm'
+    'login': 'users.forms.CustomLoginForm',
+    'signup': 'users.forms.CustomSignupForm',
 }
 
 LOGIN_REDIRECT_URL = 'home'

@@ -11,18 +11,6 @@
     <br />
     <form method="post">
         {% csrf_token %}
-        <!-- {{ form.email.errors }}
-        <div class="input-group mb-3">
-            <input type="email" class="form-control" name="login" autofocus=""
-            autocapitalize="none" autocomplete="none" maxlength="30"
-            required="" id="id_login" placeholder="Email address" aria-label="Email address">
-        </div>
-        {{ form.password.errors }}
-        <div class="input-group mb-3">
-            <input type="password" class="form-control" name="password" autofocus=""
-            autocapitalize="none" autocomplete="none" maxlength="30"
-            required="" id="id_password" placeholder="Password" aria-label="Password">
-        </div> -->
         {{ form.as_p }}
         <button type="submit" class="btn btn-primary">Log in</button>
     </form>
