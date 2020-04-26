@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% for game in games %}
+    <a href="{% url 'game' game.slug %}">{{ game.slug }}</a>
+{% endfor %}
+
+{% endblock content %}

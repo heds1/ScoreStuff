@@ -11,7 +11,7 @@
 
 <form action="" method="post">
     {% csrf_token %}
-    <div class="input-group mb-3">
+    <div class="input-group mb-3" style="flex-direction: row;">
         <input type="text" class="form-control" name="name" autofocus=""
             autocapitalize="none" autocomplete="none" placeholder="Name"
             aria-label="Name" maxlength="30" required="" id="id_name">
@@ -28,73 +28,73 @@
 
 <h3>Scoreboard</h3>
 
-<table style="text-align: center;">
-    <tr style="border-bottom:groove; font-weight:500;">
-        <th>
-            Round
-        </th>
-        {% for player in players %}
-        <th>
-            {{ player.name }}
-        </th>
-        {% endfor %}
-    </tr>
-    {% for round in rounds %}
-    <tr>
-        <td>
-            {{ forloop.counter }}
-        </td>
-        {% for score in round.score_set.all %}
-        <td>
-            {{ score.value }}
-        </td>
-        {% endfor %}
-    </tr>
-    {% endfor %}
-    <tr style="border-bottom:groove; border-top:groove; font-weight:500;">
-        <td>
-            Total
-        </td>
-        {% for score in running_scores %}
-        <td>
-            {{ score.total }}
-        </td>
-        {% endfor %}
-    </tr>
-    <form method="post">
-    <div style="vertical-align:middle;">
+<div class="table-responsive">
+    <table class="table table-striped table-hover" style="text-align: center;">
+        <thead class="thead-dark">
+            <tr style="border-bottom:groove; font-weight:500;">
+                <th style="width: 10%">
+                    Round
+                </th>
+                {% for player in players %}
+                <th style="width: 10%">
+                    {{ player.name }}
+                </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        {% for round in rounds %}
         <tr>
             <td>
-                <input type="submit" name="add_score" id="add_score" class="btn
-                btn-primary" value="Update round {{ rounds|length}} ">
+                {{ forloop.counter }}
             </td>
-        
-            {% csrf_token %}
-            {{ formset.management_form }}
-            {% for form in formset %}
+            {% for score in round.score_set.all %}
             <td>
-                <div hidden class="input-group">
-                    {{ form.player }}
-                </div>
-                <div hidden class="input-group">
-                    {{ form.game_round }}
-                </div>
-                <div class="input-group">
-                    {{ form.value }}
-                </div>
-                <div hidden class="input-group">
-                    {{ form.id }}
-                </div>
-            </td> 
+                {{ score.value }}
+            </td>
             {% endfor %}
         </tr>
-    </div>
-        
-</form>
+        {% endfor %}
+        <tr style="border-bottom:groove; border-top:groove; font-weight:500;">
+            <td>
+                Total
+            </td>
+            {% for score in running_scores %}
+            <td>
+                {{ score.total }}
+            </td>
+            {% endfor %}
+        </tr>
+        <form method="post">
+            <div style="vertical-align:middle;">
+                <tr>
+                    <td>
+                        <input type="submit" name="add_score" id="add_score" class="btn
+                        btn-primary" value="Update round {{ rounds|length}} ">
+                    </td>
+                    {% csrf_token %}
+                    {{ formset.management_form }}
+                    {% for form in formset %}
+                    <td>
+                        <div hidden class="input-group">
+                            {{ form.player }}
+                        </div>
+                        <div hidden class="input-group">
+                            {{ form.game_round }}
+                        </div>
+                        <div class="input-group">
+                            {{ form.value }}
+                        </div>
+                        <div hidden class="input-group">
+                            {{ form.id }}
+                        </div>
+                    </td> 
+                    {% endfor %}
+                </tr>
+            </div>   
+        </form> 
+    </table>
+</div>
 
-
-    
-</table>
 
 <br />
 

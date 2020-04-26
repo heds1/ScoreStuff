@@ -48,34 +48,14 @@ div.home-mid {
     margin: auto;
 }
 
-/* style the login forms */
-label {
-    display: none;
-}
-
-#id_login.input {
-    
-}
-
-<input type="email" class="form-control" name="login" autofocus=""
-            autocapitalize="none" autocomplete="none" maxlength="30"
-            required="" id="id_login" placeholder="Email address" aria-label="Email address">
-
-/* table resizing */
-table {
-    width: 50%;
-}
-
-@media (min-width: 600px) {
-    table {
-        width: 80%
-    }
-}
-
 /* center align and decrease size of the score updater inputs */
 input[type=number] {
     text-align: center;
     font-size: 1rem;
+}
+
+div.input-group {
+    flex-direction: column;
 }
 
 #add_score {
@@ -116,6 +96,20 @@ div.main-container {
     background: #f8f8f8;
     height: 100vh;
     padding-top: 20px;
+}
+
+@media (min-width: 760px) and (max-width:1199px) {
+    .main {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .main {
+        padding-left: 20%;
+        padding-right: 20%;
+    }
 }
 
 .main {
