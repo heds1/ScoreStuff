@@ -4,9 +4,12 @@
 {% block content %}
 
 <script type="text/javascript">
-    function myFunction() {
+
+    /* copy game links to clipboard */
+    function myFunction(inputId) {
+        
         /* Get the text field */
-        var copyText = document.getElementById("myInput");
+        var copyText = document.getElementById(inputId);
 
         /* Unhide it so we can copy */
         copyText.type ='text'
@@ -37,7 +40,13 @@
                     Game
                 </th>
                 <th>
+                    Players
+                </th>
+                <th>
                     Link
+                </th>
+                <th>
+
                 </th>
             </tr>
             {% for game in games %}
@@ -49,9 +58,18 @@
                     <a href="{% url 'game' game.slug %}">{{ game.slug }}</a>
                 </td>
                 <td>
-                    <input type="hidden" value="https://www.scorestuff.nz{{game.get_absolute_url}}" id="myInput">
-                    <a href="#" onclick="myFunction()">Copy link</a>
-
+                    {% for player in player_list %}
+                        {% if player.game_id == game.id %}
+                            {{ player.name }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    <input type="hidden" value="https://www.scorestuff.nz{{game.get_absolute_url}}" id="{{game.slug}}">
+                    <a href="" id="{{game.slug}}" onclick="myFunction(this.id)">Copy link</a>
+                </td>
+                <td>
+                    <a href="{% url 'delete_game' game.id %}"?>Delete</a>
                 </td>
             </tr>
            

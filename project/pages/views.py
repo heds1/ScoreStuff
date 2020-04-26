@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from scorer.forms import CreateGameForm
-from scorer.models import Game, Round
+from scorer.models import Game, Round, Player
 from django.http import HttpResponseRedirect
 from django.views.generic import ListView
 
@@ -37,6 +37,12 @@ def home(request):
     return render(request, 'pages/home.html', {'form': form})
 
 
+def delete_game(request, id):
+    game = Game.objects.get(id=id)
+    game.delete()
+    return HttpResponseRedirect(reverse('games'))
+
+
 class GamesList(ListView):
     """
     Return a list of all games for the logged-in user.
@@ -55,6 +61,13 @@ class GamesList(ListView):
         queryset = super(GamesList, self).get_queryset()
         queryset = queryset.filter(organizer_id=self.request.user)
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # add in player data
+        # context['player_list'] = Player.objects.filter(game_id=self.kwargs['id'])
+        context['player_list'] = Player.objects.all()
+        return context
 
 
 def privacy(request):

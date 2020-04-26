@@ -23,8 +23,8 @@ class Game(models.Model):
         on_delete=models.CASCADE)
     date = models.DateField(auto_now=True)
 
-    def get_absolute_url(self):
-        return "/game/%i" % self.slug
+    # def get_absolute_url(self):
+    #     return "/game/%i" % self.slug
 
     # def __init__(self, *args, **kwargs):
     #     self.request = kwargs.pop('request', None)

@@ -16,7 +16,7 @@
     <form method="post">
         {% csrf_token %}
         <input type="text" name="slug" maxlength="50" id="id_slug" style="display:none;">
-        <input type="submit" class="btn btn-primary" value="Create new room">
+        <input type="submit" class="btn btn-primary" value="Create new gameroom">
     </form>
 </div>
 
@@ -45,7 +45,7 @@
 <div class="home">
     <h3>Convinced?</h3>
     <br />
-    <a class="btn btn-primary" href="{% url 'account_signup' %}">GET STARTED</a>
+    <a class="btn btn-primary" href="{% url 'account_signup' %}">Sign up</a>
 </div>
 
 {% endif %}
