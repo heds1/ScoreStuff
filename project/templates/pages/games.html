@@ -3,8 +3,63 @@
 
 {% block content %}
 
-{% for game in games %}
-    <a href="{% url 'game' game.slug %}">{{ game.slug }}</a>
-{% endfor %}
+<script type="text/javascript">
+    function myFunction() {
+        /* Get the text field */
+        var copyText = document.getElementById("myInput");
+
+        /* Unhide it so we can copy */
+        copyText.type ='text'
+
+        /* Select the text field */
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+        /* Copy the text inside the text field */
+        document.execCommand("copy");
+
+        /* Hide it again */
+        copyText.type ='hidden'
+
+        /* Alert the copied text */
+        alert("Copied the text: " + copyText.value);
+        }
+</script>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Game
+                </th>
+                <th>
+                    Link
+                </th>
+            </tr>
+            {% for game in games %}
+            <tr>
+                <td>
+                    {{ game.date }}
+                </td>
+                <td>
+                    <a href="{% url 'game' game.slug %}">{{ game.slug }}</a>
+                </td>
+                <td>
+                    <input type="hidden" value="https://www.scorestuff.nz{{game.get_absolute_url}}" id="myInput">
+                    <a href="#" onclick="myFunction()">Copy link</a>
+
+                </td>
+            </tr>
+           
+            {% endfor %}
+        </thead>
+    </table>
+</div>
+
+
 
 {% endblock content %}
