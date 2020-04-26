@@ -18,6 +18,32 @@
     border-top-color: rgb(222, 226, 230);
 }
 
+/* style the main home content */
+div.home {
+    display:flex;
+    width:100%;
+    align-items:center;
+    justify-content: center;
+    margin: auto;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    flex-direction: column;
+    text-align: center;
+}
+
+div.home-mid {
+    display:flex;
+    width:100%;
+    align-items:center;
+    justify-content: center;
+    margin: auto;
+    text-align: center;
+    flex-direction: column;
+    background: white !important;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
 #footer-text {
     margin: auto;
 }
@@ -26,6 +52,10 @@
 input[type=number] {
     text-align: center;
     font-size: 1rem;
+}
+
+div.input-group {
+    flex-direction: column;
 }
 
 #add_score {
@@ -66,6 +96,25 @@ div.main-container {
     background: #f8f8f8;
     height: 100vh;
     padding-top: 20px;
+}
+
+@media (min-width: 760px) and (max-width:1199px) {
+    .table-responsive {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .table-responsive {
+        padding-left: 20%;
+        padding-right: 20%;
+    }
+}
+
+/* hide email/password label on login form */
+label {
+    display:none;
 }
 
 .main {

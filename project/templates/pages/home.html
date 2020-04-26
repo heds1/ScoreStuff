@@ -5,15 +5,50 @@
 
 {% block content %}
 
-<h1>Welcome to ScoreStuff</h1>
+<div class="home">
+    <h2>ScoreStuff</h2>
+    <p>scoring the things</p>
+</div>
 
-<div class="center">
+{% if user.is_authenticated %}
+
+<div class="home-mid">
     <form method="post">
         {% csrf_token %}
-        {{ form }}
-        <input type="submit" class="btn btn-primary" value="GET STARTED!">
+        <input type="text" name="slug" maxlength="50" id="id_slug" style="display:none;">
+        <input type="submit" class="btn btn-primary" value="Create new gameroom">
     </form>
 </div>
+
+
+{% else %}
+
+<div class="home-mid">
+    <h3>How it works</h3>
+    <p>
+        1. Sign up for a free account
+    </p>
+    <p>
+        2. Create a room to keep track of your scores 
+    </p>
+    <p>
+        3. Obviously win because you're the one doing the scoring
+    </p>
+    <p>
+        4. Bask in the glory of winning your social card game by cheating
+    </p>
+    <p>
+        5. Find some new friends
+    </p>
+</div>
+
+<div class="home">
+    <h3>Convinced?</h3>
+    <br />
+    <a class="btn btn-primary" href="{% url 'account_signup' %}">Sign up</a>
+</div>
+
+{% endif %}
 
 
 {% endblock content %}

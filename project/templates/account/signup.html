@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sign up{% endblock title %}
+
+
+{% block content %}
+
+<div class="center">
+    <h3>Create an account</h3>
+    <br />
+    <form method="post">
+        {% csrf_token %}
+            <!-- <div style="margin-bottom: 1rem;">
+                <input type="email" class="form-control" name="email" autofocus=""
+                autocapitalize="none" autocomplete="none" maxlength="30"
+                required="" id="id_email" placeholder="Email address" aria-label="Email address">
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <input type="text" class="form-control" name="first_name" autofocus=""
+                autocapitalize="none" autocomplete="none" maxlength="30"
+                required="" id="id_first_name" placeholder="First name"
+                aria-label="First name">
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <input type="text" class="form-control" name="last_name" autofocus=""
+                autocapitalize="none" autocomplete="none" maxlength="30"
+                required="" id="id_last_name" placeholder="Last name" aria-label="Last name">
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <input type="password" class="form-control" name="password1" autofocus=""
+                autocapitalize="none" autocomplete="none" maxlength="30"
+                required="" id="id_password1" placeholder="Password" aria-label="Password">
+            </div> -->
+            {{form.as_p}}
+        <button type="submit" class="btn btn-primary">Sign up</button>
+    </form>
+    <p style='white-space: pre-line;'>
+        Already have an account?
+        <a href="{% url 'account_login' %}">Sign in here</a>
+    </p>
+    
+</div>
+
+
+{% endblock content %}
